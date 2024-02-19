@@ -19,7 +19,7 @@ public class ArrayOps {
             System.out.print(array2[i] + " ");
         System.out.println();
         System.out.println(findMissingInt(array2));
-
+        */
         //tests for secondMaxValue
         int arr[] = {6, 9, 4, 7, 3, 4};
         for (int i=0; i<arr.length; i++)
@@ -51,7 +51,7 @@ public class ArrayOps {
         System.out.println();
         System.out.println(secondMaxValue(arr4));
         
-
+        /** 
         //tests for containsTheSameElements
         int arr1[] = {1, 2, 1, 1, 2};
         int arr2[] = {2, 1};
@@ -100,7 +100,7 @@ public class ArrayOps {
         }
         System.out.println();
         System.out.println(containsTheSameElements(arr7, arr8));
-        */
+        
 
         //tests for isSorted
         int arr9[] = {7, 5, 4, 3, -12};
@@ -132,7 +132,7 @@ public class ArrayOps {
             System.out.print(arr13[i] + " ");
         System.out.println();
         System.out.println(isSorted(arr13));
-
+        */
     }
     
     public static int findMissingInt (int [] array) {
@@ -156,16 +156,29 @@ public class ArrayOps {
         //presume that the max value and the secondMax value is in the first cell of the array
         int secMax = array[0];
         int max = array[0];
-        //go over the given array and find the max value
+        //to indicate if the max value appears more than once
+        int flag = 0; 
+        //go over the array and find the max value
         for (int i=0; i<array.length; i++) {
-            if(array[i] > max)
-                max = array[i];
-            //go over the array again and this time check if every cell is smaller than the max and larger than the secMax
-            for(int j=0; j<array.length; j++) {
-                if(secMax < array[j] && array[j] < max)
-                    secMax = array[j];
+            //if the cell has the same value as the max, increase the flag value
+            if(array[i] == max) {
+                flag++;
             }
-        } 
+            if(array[i] >= max) {
+            max = array[i];
+            }      
+        }
+        //go over the array again and check what cell is greater than secMax and lower than max
+        for (int j=0; j < array.length; j++) {
+            if(secMax <= array[j] && array[j] < max) {
+                secMax = array[j];
+            }
+        }
+        //if flag is greater than 2 (it will always be at least 1 because of the first value of max), then the max appeared more than once
+        //in ths case, set secMax to the max value
+        if(flag >= 2) {
+            secMax = max;
+        }
         return secMax;
     }
 
